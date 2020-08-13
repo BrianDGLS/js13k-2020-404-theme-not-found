@@ -1,0 +1,18 @@
+{
+  "name": "js13k-2020-404-theme-not-found",
+  "version": "1.0.0",
+  "description": "Tear Down 404 is a math game where the player must get from 404 to zero as quick as possible.",
+  "main": "src/main.ts",
+  "author": "Brian Douglas <briandgls92@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack --mode=development -w",
+    "prod": "webpack --mode=production"
+  },
+  "dependencies": {
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
