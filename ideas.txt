@@ -14,3 +14,4 @@ Tear Down 404 -
   is a race against time. Failing to hit the correct numbers will take longer to 
   get to zero.
 
+  Note: User will need to see arrow's current value as well as upcoming value.
