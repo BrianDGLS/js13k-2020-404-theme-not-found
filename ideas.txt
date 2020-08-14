@@ -1,17 +1,14 @@
-Flight Path - 
-  Flight #404 has gone of radar. You must locate it's flight path. 
-  Flight path sim.
-
-Lost and Found - 
-  Give the correct item to the correct character.
-
-Search For Red 404 - 
-  The soviet submarine known as red 404 has gone missing. A battleship clone.
-
-Tear Down 404 - 
+Tear Down 404: 
   Get to zero as quick as possible. Numbers are located north, south, east, and 
   west. Hit the corresponding arrow keys to subtract that number from 404. This 
   is a race against time. Failing to hit the correct numbers will take longer to 
   get to zero.
 
-  Note: User will need to see arrow's current value as well as upcoming value.
+  Player can switch mathematic symbols using spacebar. Symbol are minus (-) and
+  divide (/)
+
+  Two game modes: 
+    Marathon and Sprint. Sprint is how many times a player can tear down 404 in 
+    60 seconds. Marathon is how fast a player can tear down 26 404s.
+
+  Note: Player will need to see arrow's current value as well as upcoming value.
