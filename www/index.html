@@ -4,82 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tear Down 404</title>
-    <style>
-      .game-container {
-        width: 95%;
-        max-width: 420px;
-
-        margin: 0 auto;
-      }
-
-      .upcoming-number,
-      .controls {
-        width: 100%;
-        display: flex;
-        align-items: center;
-      }
-
-      .controls .btn,
-      .upcoming-number__set {
-        flex: 1;
-      }
-
-      .upcoming-number__set span {
-        display: block;
-        text-align: center;
-      }
-
-      .btn.active {
-        border: 2px solid red;
-      }
-
-      .value-container {
-        text-align: center;
-      }
-      .teardown {
-        font-size: 32px;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/styles/main.css" />
   </head>
   <body>
-    <div class="game-container">
-      <h1>404 Tear Down</h1>
-
-      <div class="value-container">
-        <span class="teardown">404</span>
+    <div class="controls">
+      <div class="symbols">
+        <button id="divide" data-key=" ">divide</button>
+        <button id="subtract" data-key=" ">subtract</button>
       </div>
-      <div class="upcoming-number">
-        <div class="upcoming-number__set">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="upcoming-number__set">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="upcoming-number__set">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="upcoming-number__set">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-      <div class="controls">
-        <button class="btn btn__left">&larr;</button>
-        <button class="btn btn__down">&darr;</button>
-        <button class="btn btn__up">&uarr;</button>
-        <button class="btn btn__right">&rarr;</button>
-      </div>
-      <div class="controls">
-        <button class="btn btn__divide active">divide</button>
-        <button class="btn btn__subtract">subtract</button>
-      </div>
+      <button id="left" data-key="ArrowLeft">left</button>
+      <button id="up" data-key="ArrowUp">up</button>
+      <button id="down" data-key="ArrowDown">down</button>
+      <button id="right" data-key="ArrowRight">right</button>
     </div>
     <script src="assets/scripts/main.js"></script>
   </body>
