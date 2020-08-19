@@ -1,3 +1,40 @@
+.container {
+  text-align: center;
+}
+
+.button-container {
+  position: relative;
+  width: 120px;
+  height: 40px;
+  display: inline-block;
+  background: black;
+  padding: 4px;
+  border-radius: 12px 3px 12px 3px;
+}
+
+button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 120px;
+  height: 40px;
+  background: #fff;
+  border: 3px solid black;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 16px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: -0.3px;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
 button.active {
-  background: red;
+  background: mediumspringgreen;
+  color: #fff;
+  transform: translate(-2px, 2px);
 }
