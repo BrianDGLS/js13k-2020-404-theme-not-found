@@ -1,3 +1,5 @@
+import { Game, GAME_MODE, SYMBOLS, NumberTriplet } from './game'
+
 const $up = document.getElementById('up')
 const $down = document.getElementById('down')
 const $left = document.getElementById('left')
@@ -19,126 +21,51 @@ const $value = document.getElementById('value') as HTMLSpanElement
 
 const $buttons = document.querySelectorAll('[data-key]')
 
-enum Symbols {
-  SUBTRACT,
-  DIVIDE,
-}
-
-class Game {
-  initialValue = 404
-  currentValue = this.initialValue
-  score = 0
-  mode: 'sprint' | 'marathon' = 'sprint'
-  numbers: { [key: string]: number[] } = {
-    up: [],
-    down: [],
-    left: [],
-    right: [],
-  }
-
-  symbol: Symbols = Symbols.DIVIDE
-
-  update() {
-    this.updateValue()
-    this.updateScore()
-  }
-
-  randomNumber() {
-    return Math.floor(Math.random() * 9) + 1
-  }
-
-  generateNumbers() {
-    for (const key in this.numbers) {
-      while (this.numbers[key].length < 3) {
-        this.numbers[key].push(this.randomNumber())
-      }
-      switch (key) {
-        case 'up':
-          $upNumbers.innerHTML = `${this.numbers[key].map((n) => `<span>${n}</span>`).join('')}`
-          break
-        case 'down':
-          $downNumbers.innerHTML = `${this.numbers[key].map((n) => `<span>${n}</span>`).join('')}`
-          break
-        case 'left':
-          $leftNumbers.innerHTML = `${this.numbers[key].map((n) => `<span>${n}</span>`).join('')}`
-          break
-        case 'right':
-          $rightNumbers.innerHTML = `${this.numbers[key].map((n) => `<span>${n}</span>`).join('')}`
-          break
-      }
-    }
-  }
-
-  init() {
-    this.currentValue = this.initialValue
-    this.symbol = Symbols.DIVIDE
-    this.updateSymbol()
-    this.generateNumbers()
-  }
-
-  updateValue() {
-    $value.innerText = this.currentValue.toString()
-  }
-
-  updateScore() {
-    $score.innerText = this.score.toString()
-  }
-
-  updateMode() {
-    $mode.innerText = this.mode.toString()
-  }
-
-  updateSymbol() {
-    if (this.symbol === Symbols.DIVIDE) {
-      $symbol.innerText = '/'
-      $divide?.classList.add('active')
-      $subtract?.classList.remove('active')
-    } else {
-      $symbol.innerText = '-'
-      $subtract?.classList.add('active')
-      $divide?.classList.remove('active')
-    }
-  }
-
-  switchSymbol() {
-    if (this.symbol === Symbols.DIVIDE) {
-      this.symbol = Symbols.SUBTRACT
-    } else {
-      this.symbol = Symbols.DIVIDE
-    }
-
-    this.updateSymbol()
-  }
-
-  selectLeft() {
-    const leftValue = this.numbers.left.pop() as number
-    this.numbers.left.unshift(this.randomNumber())
-    if (this.symbol === Symbols.DIVIDE) {
-      this.currentValue = Math.round(this.currentValue / leftValue)
-    } else {
-      this.currentValue = Math.round(this.currentValue - leftValue)
-    }
-
-    $leftNumbers.innerHTML = `${this.numbers.left.map((n) => `<span>${n}</span>`).join('')}`
-
-    this.update()
-  }
-}
-
 const game = new Game()
 
 window.addEventListener('DOMContentLoaded', () => {
-  game.init()
+  game.startMarathon()
+  updateUI()
+  setActiveSymbolButton()
 })
+
+function updateUI() {
+  $mode.innerText = game.mode === GAME_MODE.MARATHON ? 'Marathon' : 'Sprint'
+  $score.innerText = game.laps.toString()
+  $value.innerText = game.currentValue.toString()
+
+  $downNumbers.innerHTML = getNumberElements(game.down)
+  $upNumbers.innerHTML = getNumberElements(game.up, true)
+  $rightNumbers.innerHTML = getNumberElements(game.right)
+  $leftNumbers.innerHTML = getNumberElements(game.left, true)
+}
+
+function getNumberElements(triplet: NumberTriplet, inverse: boolean = false) {
+  const reducer = (acc: string, n: number) => ((acc += `<span>${n}</span>`), acc)
+  return inverse ? triplet.reduceRight(reducer, '') : triplet.reduce(reducer, '')
+}
+
+function setActiveSymbolButton() {
+  if (game.symbol === SYMBOLS.DIVIDE) {
+    $divide?.classList.add('active')
+    $subtract?.classList.remove('active')
+  } else {
+    $subtract?.classList.add('active')
+    $divide?.classList.remove('active')
+  }
+
+  $symbol.innerText = game.symbol === SYMBOLS.DIVIDE ? '/' : '-'
+}
+
+function handleSymbolButton() {
+  game.switchSymbol()
+  return setActiveSymbolButton()
+}
 
 for (const $button of $buttons) {
   $button.addEventListener('pointerup', () => {
     const key = $button.getAttribute('data-key')
-    if (key === ' ') {
-      return game.switchSymbol()
-    }
-
-    if (key === 'ArrowLeft') game.selectLeft()
+    if (key === ' ') return handleSymbolButton()
 
     $button?.classList.remove('active')
   })
@@ -149,15 +76,28 @@ for (const $button of $buttons) {
 }
 
 window.addEventListener('keyup', (e) => {
-  if (e.key === ' ') {
-    return game.switchSymbol()
-  }
+  if (e.key === ' ') return handleSymbolButton()
 
   for (const $button of $buttons) {
     const key = $button.getAttribute('data-key')
-    if (key && e.key === key) {
-      if (key === 'ArrowLeft') game.selectLeft()
 
+    if (key && e.key === key) {
+      switch (key) {
+        case 'ArrowUp':
+          game.selectLeft()
+          break
+        case 'ArrowDown':
+          game.selectDown()
+          break
+        case 'ArrowLeft':
+          game.selectLeft()
+          break
+        case 'ArrowRight':
+          game.selectRight()
+          break
+      }
+
+      updateUI()
       $button?.classList.remove('active')
     }
   }
@@ -173,11 +113,3 @@ window.addEventListener('keydown', (e) => {
     }
   }
 })
-
-function debounce(fn: (...args: any[]) => any, ms = 0) {
-  let timeoutId: number
-  return function (this: any, ...args: any[]) {
-    clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => fn.apply(this, args), ms)
-  }
-}

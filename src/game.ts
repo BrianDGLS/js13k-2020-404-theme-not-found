@@ -23,6 +23,8 @@ export class Game {
   initialValue = 404
   currentValue = this.initialValue
 
+  inProgress: boolean = false
+
   up: NumberTriplet = [0, 0, 0]
   down: NumberTriplet = [0, 0, 0]
   left: NumberTriplet = [0, 0, 0]
@@ -73,7 +75,7 @@ export class Game {
     if (this.symbol === SYMBOLS.DIVIDE) {
       this.currentValue = Math.round(this.currentValue / n)
     } else {
-      this.currentValue = Math.round(this.currentValue - n)
+      this.currentValue = this.currentValue - n
     }
   }
 
