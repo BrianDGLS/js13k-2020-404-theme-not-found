@@ -7,26 +7,47 @@
     <link rel="stylesheet" href="assets/styles/main.css" />
   </head>
   <body>
-    <div class="controls">
-      <div class="symbols">
-        <div class="button-container">
-          <button id="divide" data-key=" ">divide</button>
+    <div class="game-container">
+      <div class="meta-container">
+        <div class="mode">Game Mode: <span id="mode">Sprint</span></div>
+        <div class="score">Score: <span id="score">3</span></div>
+      </div>
+      <div class="value-container">
+        <span id="value">404</span>
+      </div>
+      <div class="number-container">
+        <div id="up-numbers"></div>
+        <div class="row">
+          <div id="left-numbers"></div>
+          <div id="symbol">/</div>
+          <div id="right-numbers"></div>
         </div>
-        <div class="button-container">
-          <button id="subtract" data-key=" ">subtract</button>
+
+        <div id="down-numbers"></div>
+      </div>
+      <div class="buttons-container">
+        <div class="symbols">
+          <div class="button-container">
+            <button id="divide" data-key=" ">divide</button>
+          </div>
+          <div class="button-container">
+            <button id="subtract" data-key=" ">subtract</button>
+          </div>
         </div>
-      </div>
-      <div class="button-container">
-        <button id="left" data-key="ArrowLeft">left</button>
-      </div>
-      <div class="button-container">
-        <button id="up" data-key="ArrowUp">up</button>
-      </div>
-      <div class="button-container">
-        <button id="down" data-key="ArrowDown">down</button>
-      </div>
-      <div class="button-container">
-        <button id="right" data-key="ArrowRight">right</button>
+        <div class="controls">
+          <div class="button-container">
+            <button id="left" data-key="ArrowLeft">left</button>
+          </div>
+          <div class="button-container">
+            <button id="up" data-key="ArrowUp">up</button>
+          </div>
+          <div class="button-container">
+            <button id="down" data-key="ArrowDown">down</button>
+          </div>
+          <div class="button-container">
+            <button id="right" data-key="ArrowRight">right</button>
+          </div>
+        </div>
       </div>
     </div>
     <script src="assets/scripts/main.js"></script>

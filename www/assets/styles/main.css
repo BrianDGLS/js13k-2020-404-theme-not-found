@@ -1,13 +1,20 @@
-.container {
-  text-align: center;
+body {
+  height: 100vh;
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: monospace;
+  color: #111;
+  background: #fcfcfc;
 }
 
 .button-container {
+  flex: 1;
+  margin: 0 2px;
   position: relative;
-  width: 120px;
   height: 40px;
   display: inline-block;
-  background: black;
+  background: #111;
   padding: 4px;
   border-radius: 12px 3px 12px 3px;
 }
@@ -16,10 +23,10 @@ button {
   position: absolute;
   right: 0;
   top: 0;
-  width: 120px;
   height: 40px;
-  background: #fff;
-  border: 3px solid black;
+  width: calc(100% - 12px);
+  background: #fcfcfc;
+  border: 3px solid #111;
   font-weight: bold;
   font-family: monospace;
   font-size: 16px;
@@ -35,6 +42,57 @@ button:focus {
 
 button.active {
   background: mediumspringgreen;
-  color: #fff;
+  color: #111;
   transform: translate(-2px, 2px);
+}
+
+.symbols,
+.controls,
+.meta-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.symbols + .controls {
+  margin: 0.5rem 0;
+}
+
+.value-container {
+  text-align: center;
+}
+
+.value-container #value {
+  font-size: 128px;
+}
+
+.game-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 512px;
+  max-width: 99%;
+  height: 100%;
+}
+
+.number-container #up-numbers,
+.number-container #down-numbers {
+  text-align: center;
+}
+
+.number-container #up-numbers span,
+.number-container #down-numbers span {
+  display: block;
+}
+
+.number-container span {
+  margin: 5px;
+}
+
+.number-container .row {
+  text-align: center;
+}
+.number-container .row div {
+  display: inline-block;
 }
