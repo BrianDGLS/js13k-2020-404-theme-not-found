@@ -64,10 +64,8 @@ function handleSymbolButton() {
 
 for (const $button of $buttons) {
   $button.addEventListener('pointerup', () => {
-    const key = $button.getAttribute('data-key')
-    if (key === ' ') return handleSymbolButton()
-
-    $button?.classList.remove('active')
+    const key = $button.getAttribute('data-key') as string
+    handleButtonSelect(key)
   })
 
   $button.addEventListener('pointerdown', () => {
@@ -76,15 +74,30 @@ for (const $button of $buttons) {
 }
 
 window.addEventListener('keyup', (e) => {
-  if (e.key === ' ') return handleSymbolButton()
+  handleButtonSelect(e.key)
+})
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === ' ') return
 
   for (const $button of $buttons) {
     const key = $button.getAttribute('data-key')
-
     if (key && e.key === key) {
-      switch (key) {
+      $button?.classList.add('active')
+    }
+  }
+})
+
+function handleButtonSelect(key: string) {
+  if (key === ' ') return handleSymbolButton()
+
+  for (const $button of $buttons) {
+    const selectedKey = $button.getAttribute('data-key')
+
+    if (selectedKey && key === selectedKey) {
+      switch (selectedKey) {
         case 'ArrowUp':
-          game.selectLeft()
+          game.selectUp()
           break
         case 'ArrowDown':
           game.selectDown()
@@ -101,15 +114,4 @@ window.addEventListener('keyup', (e) => {
       $button?.classList.remove('active')
     }
   }
-})
-
-window.addEventListener('keydown', (e) => {
-  if (e.key === ' ') return
-
-  for (const $button of $buttons) {
-    const key = $button.getAttribute('data-key')
-    if (key && e.key === key) {
-      $button?.classList.add('active')
-    }
-  }
-})
+}
